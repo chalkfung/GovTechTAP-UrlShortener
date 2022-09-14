@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-row class="text-center">
+  <v-container fill-height fluid>
+    <v-row align="center" justify="center" class="text-center">
       <v-col cols="12">
         <v-form ref="form">
         <v-text-field label="Enter Link to Shorten" v-model="originalLink"></v-text-field>

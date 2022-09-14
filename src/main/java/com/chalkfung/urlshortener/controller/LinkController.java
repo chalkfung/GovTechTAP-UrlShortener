@@ -32,12 +32,20 @@ public class LinkController {
             if(result.isPresent()) {
                 return new ResponseEntity<String>(result.get().getShortLink(), HttpStatus.OK);
             }else{
-                Link newLink = new Link();
-                newLink.setOriginalLink(link);
-                Link saved = linkService.saveLink(newLink);
-                saved.setShortLink(encode(saved.getId()));
-                saved = linkService.saveLink(saved);
-                return new ResponseEntity<String>(saved.getShortLink(), HttpStatus.OK);
+                if(link != null)
+                {
+                    Link newLink = new Link();
+                    newLink.setOriginalLink(link);
+                    Link saved = linkService.saveLink(newLink);
+                    saved.setShortLink(encode(saved.getId()));
+                    saved = linkService.saveLink(saved);
+                    return new ResponseEntity<String>(saved.getShortLink(), HttpStatus.OK);
+                }
+                else
+                {
+                    System.out.println("yo");
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
             }
         } catch (Exception e) {
             return new ResponseEntity<String>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
