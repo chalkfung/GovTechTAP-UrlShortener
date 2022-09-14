@@ -28,14 +28,15 @@ public class LinkController {
     {
         try
         {
-            Optional<Link> result = linkService.getLinkByOriginalLink(link);
+            String processedLink = link.replaceFirst("^(http[s]?://www\\.|http[s]?://|www\\.)","");
+            Optional<Link> result = linkService.getLinkByOriginalLink(processedLink);
             if(result.isPresent()) {
                 return new ResponseEntity<String>(result.get().getShortLink(), HttpStatus.OK);
             }else{
-                if(link != null && link != "")
+                if(processedLink != null && processedLink != "")
                 {
                     Link newLink = new Link();
-                    newLink.setOriginalLink(link);
+                    newLink.setOriginalLink(processedLink);
                     Link saved = linkService.saveLink(newLink);
                     saved.setShortLink(encode(saved.getId()));
                     saved = linkService.saveLink(saved);
