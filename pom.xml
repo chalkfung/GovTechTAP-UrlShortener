@@ -12,6 +12,7 @@
 	<artifactId>urlshortener</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>urlshortener</name>
+	<packaging>jar</packaging>
 	<description>URL Shortener Assignment for TAP</description>
 	<properties>
 		<java.version>11</java.version>

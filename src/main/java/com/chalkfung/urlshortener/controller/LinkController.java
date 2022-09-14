@@ -32,7 +32,7 @@ public class LinkController {
             if(result.isPresent()) {
                 return new ResponseEntity<String>(result.get().getShortLink(), HttpStatus.OK);
             }else{
-                if(link != null)
+                if(link != null && link != "")
                 {
                     Link newLink = new Link();
                     newLink.setOriginalLink(link);
@@ -43,7 +43,6 @@ public class LinkController {
                 }
                 else
                 {
-                    System.out.println("yo");
                     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
                 }
             }
