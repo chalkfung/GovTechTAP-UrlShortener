@@ -68,7 +68,7 @@ public class LinkController {
         }
     }
 
-    private String encode(int base10)
+    public static String encode(int base10)
     {
         final char[] ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
         final int ENCODE_LENGTH = ALPHABET.length;
@@ -80,7 +80,7 @@ public class LinkController {
         } while (base10 > 0);
 
         Collections.reverse(list);
-        return list.toString().substring(1, list.toString().length() - 1);
+        return list.toString().substring(1, list.toString().length() - 1).replaceAll("[, ;]", "");
     }
 }
 
