@@ -3,10 +3,13 @@ package com.chalkfung.urlshortener.controller;
 import com.chalkfung.urlshortener.model.Link;
 import com.chalkfung.urlshortener.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 public class LinkController {
 
     @Autowired
@@ -43,14 +47,15 @@ public class LinkController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<String> getLinkByShortLink(@PathVariable String id)
+    public ResponseEntity<String> getLinkByShortLink(@PathVariable String id, HttpServletResponse response)
     {
         try
         {
             Optional<Link> result = linkService.getLinkByShortLink(id);
             if(result.isPresent())
             {
-                return new ResponseEntity<String>(result.get().getOriginalLink(), HttpStatus.OK);
+                response.sendRedirect("https://" + result.get().getOriginalLink());
+                return null;
             }
             else
             {
